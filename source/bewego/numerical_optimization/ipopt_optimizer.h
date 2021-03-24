@@ -28,8 +28,8 @@
 #include <bewego/numerical_optimization/constrained_optimization_problem.h>
 #include <bewego/numerical_optimization/optimizer.h>
 
-#include <coin/IpIpoptApplication.hpp>
-#include <coin/IpSolveStatistics.hpp>
+#include <coin-or/IpIpoptApplication.hpp>
+#include <coin-or/IpSolveStatistics.hpp>
 
 namespace bewego {
 namespace numerical_optimization {

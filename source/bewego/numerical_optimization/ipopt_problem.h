@@ -30,9 +30,9 @@
 #include <bewego/util/misc.h>
 
 #include <Eigen/Core>
-#include <coin/IpIpoptApplication.hpp>
-#include <coin/IpSolveStatistics.hpp>
-#include <coin/IpTNLP.hpp>
+#include <coin-or/IpIpoptApplication.hpp>
+#include <coin-or/IpSolveStatistics.hpp>
+#include <coin-or/IpTNLP.hpp>
 
 /**
  * @brief Solves the optimization problem using the IPOPT solver.
