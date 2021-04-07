@@ -97,7 +97,7 @@ for k, workspace in enumerate(tqdm(workspaces)):
     p.start()
     print("run viewer...")
     t0 = time.time()
-    viewer.run()
+    viewer.run(draw_goal_manifold=True)
     p.join()
     print("time : ", time.time() - t0)
 

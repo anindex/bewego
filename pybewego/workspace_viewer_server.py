@@ -29,14 +29,15 @@ import traceback
 class WorkspaceViewerServer(TrajectoryOptimizationViewer):
     """ Workspace display based on pyglet backend """
 
-    def __init__(self, workspace, use_gl=True):
+    def __init__(self, workspace, use_gl=True, scale=700.):
         TrajectoryOptimizationViewer.__init__(
             self,
             None,
             draw=False,
             draw_gradient=True,
             use_3d=False,
-            use_gl=use_gl)
+            use_gl=use_gl,
+            scale=scale)
 
         # Create a TCP/IP socket
         self.address = ('127.0.0.1', 5555)
@@ -51,7 +52,7 @@ class WorkspaceViewerServer(TrajectoryOptimizationViewer):
         self.q_init = None
         self.active_x = None
 
-        self.init_viewer(workspace)
+        self.init_viewer(workspace, scale=scale)
 
     def initialize_viewer(self, problem, trajectory):
         self.objective = problem
@@ -65,7 +66,7 @@ class WorkspaceViewerServer(TrajectoryOptimizationViewer):
         self.active_shape = (self.objective.n * (self.objective.T + 1), )
         self.draw(trajectory)
 
-    def run(self):
+    def run(self, draw_goal_manifold=False):
         stop = False
         while not stop:
             # Wait for a connection
@@ -99,10 +100,11 @@ class WorkspaceViewerServer(TrajectoryOptimizationViewer):
                             trajectory = Trajectory(
                                 self, q_init=self.q_init, x=self.active_x)
                             self.draw(trajectory)
-                            self.viewer.draw_ws_circle(
-                                self.objective.goal_manifold.radius,
-                                self.objective.goal_manifold.origin,
-                                color=(1, 0, 0))
+                            if draw_goal_manifold:
+                                self.viewer.draw_ws_circle(
+                                    self.objective.goal_manifold.radius,
+                                    self.objective.goal_manifold.origin,
+                                    color=(1, 0, 0))
                             # print("dist : ", np.linalg.norm(
                             #     self.objective.q_goal -
                             #     trajectory.final_configuration()))
